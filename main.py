@@ -27,8 +27,8 @@ def sign_xml_file():
             xml_document = f.read()
         f.close()
 
-        file_pk12 = '/my-path/electronic-signature-file.p12'.encode('utf-8')
-        password = '<my-password>'.encode('utf-8')
+        file_pk12 = '/home/gbelduma/PycharmProjects/signature-xades-consume/res/sign.pfx'
+        password = 'Amoniojairo15'
 
         xades = Xades(signature_path=file_pk12, password=password)
         errors = xades.validate()
@@ -38,10 +38,9 @@ def sign_xml_file():
             # firmar documento
             res = xades.sign(xml_document)
             # Mostrar resultado del documento firmado
-            print(res.decode('utf-8'))
+            logger.warning(msg=res.decode('utf-8'))
 
             base64_binary_xml = base64.b64encode(res).decode('utf-8')
-            logger.error(msg=base64_binary_xml)
             sri_client = Client(URL_RECEPTION)
 
             # consumo de ws
