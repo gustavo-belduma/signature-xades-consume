@@ -1,23 +1,3 @@
-# signature-xades-consume
-Ejemplo de consumo librería signature-xades
-
-## Actualización
-Actualización de pip
-```
-pip install pip -U
-```
-
-## Installation
-
-```
-pip install -r requirements.txt
-pip install signature_xades-0.0.2-py3-none-any.whl
-```
-
-## How to use
-Crear archivo `main.py`
-
-```
 # -*- coding: utf-8 -*-
 import base64
 import logging
@@ -47,8 +27,8 @@ def sign_xml_file():
             xml_document = f.read()
         f.close()
 
-        file_pk12 = '/my-path/electronic-signature-file.p12'.encode('utf-8')
-        password = '<my-password>'.encode('utf-8')
+        file_pk12 = '/home/gbelduma/PycharmProjects/signature-xades-consume/res/sign.pfx'
+        password = 'Amoniojairo15'
 
         xades = Xades(signature_path=file_pk12, password=password)
         errors = xades.validate()
@@ -57,8 +37,11 @@ def sign_xml_file():
         else:
             # firmar documento
             res = xades.sign(xml_document)
-            base64_binary_xml = base64.b64encode(res).decode('utf-8')
+            # Mostrar resultado del documento firmado
+            print(res.decode('utf-8'))
 
+            base64_binary_xml = base64.b64encode(res).decode('utf-8')
+            logger.error(msg=base64_binary_xml)
             sri_client = Client(URL_RECEPTION)
 
             # consumo de ws
@@ -94,7 +77,11 @@ def authorization():
 
 
 if __name__ == '__main__':
-    check_digit_temp = check_digit('000000000000000000000000000000000000000000000000')
+    """Obtener dígito verificador"""
+    # text = '310820220109900057370012001001180575405010801151'
+    # check_digit_temp = check_digit(text)
+    # print("Dígito verificador de '{}' es: {}".format(text, check_digit_temp))
+
+    """Firmar electrónicamente archivo (xml)"""
     sign_xml_file()
     # authorization()
-```
