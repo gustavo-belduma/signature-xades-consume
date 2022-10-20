@@ -27,8 +27,8 @@ def sign_xml_file():
             xml_document = f.read()
         f.close()
 
-        file_pk12 = '/home/gbelduma/PycharmProjects/signature-xades-consume/res/sign.pfx'
-        password = 'Amoniojairo15'
+        file_pk12 = '/my-path/electronic-signature-file.p12'.encode('utf-8')
+        password = '<my-password>'.encode('utf-8')
 
         xades = Xades(signature_path=file_pk12, password=password)
         errors = xades.validate()
@@ -78,10 +78,10 @@ def authorization():
 
 if __name__ == '__main__':
     """Obtener dígito verificador"""
-    # text = '310820220109900057370012001001180575405010801151'
-    # check_digit_temp = check_digit(text)
-    # print("Dígito verificador de '{}' es: {}".format(text, check_digit_temp))
+    text = '310820220109900057370012001001180575405010801151'
+    check_digit_temp = check_digit(text)
+    print("Dígito verificador de '{}' es: {}".format(text, check_digit_temp))
 
     """Firmar electrónicamente archivo (xml)"""
     sign_xml_file()
-    # authorization()
+    authorization()
